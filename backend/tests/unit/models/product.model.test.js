@@ -4,7 +4,7 @@ const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 const { allProductsMock, allProductsMockFromDB } = require('../mocks/productMocks');
 
-describe('testes da camada model', function () {
+describe('testes da camada product.model', function () {
     beforeEach(function () {
         sinon.stub(connection, 'execute').resolves(allProductsMockFromDB);
       });
@@ -14,9 +14,16 @@ describe('testes da camada model', function () {
       });
 
     it('testa a função findAll do model', async function () {
-        const findAll = await productModel.findAll();
+        const findAllResult = await productModel.findAll();
 
-        expect(findAll).to.be.an('array');
-        expect(findAll).to.deep.equal(allProductsMock);
+        expect(findAllResult).to.be.an('array');
+        expect(findAllResult).to.deep.equal(allProductsMock);
+    });
+
+    it('testa a função findById', async function () {
+      const findByIdResult = await productModel.findById(1);
+
+      expect(findByIdResult).to.deep.equal(allProductsMock[0]);
+      expect(findByIdResult).to.be.an('object');
     });
 });
