@@ -40,6 +40,45 @@ const findById = async (productId) => {
     return camelize(product);
 };
 
+// const createSale = async (productId, quantity) => {
+//     // Verificar se o produto existe
+//     const [productCheck] = await conection.execute(
+//       `
+//       SELECT * FROM products WHERE id = ?
+//       `,
+//       [productId],
+//     );
+
+//      // Inserir a venda na tabela "sales" e obter o ID da venda inserida
+//     const [insertedSale] = await conection.execute(
+//       `
+//       INSERT INTO sales (date)
+//       VALUES (NOW())
+//       `,
+//     );
+//     const saleId = insertedSale.insertId;
+
+//     // Inserir a venda na tabela "sales_products"
+//     await conection.execute(
+//       `
+//       INSERT INTO sales_products (sale_id, product_id, quantity)
+//       VALUES (?, ?, ?)
+//       `,
+//       [saleId, productId, quantity],
+//     );
+
+//     const itemInserted = {
+//       productCheck,
+//       saleId,
+//       productId,
+//       quantity,
+//     };
+
+//     return {
+//       itemInserted,
+//     };
+//   };
+
 module.exports = {
     findAll,
     findById,
