@@ -20,8 +20,18 @@ const register = async (req, res) => {
   res.status(201).json(registeredProductData);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  const { status, data } = await productService.update(id, name);
+
+  res.status(status).json(data);
+};
+
 module.exports = {
   findAll,
   findById,
   register,
+  update,
 };

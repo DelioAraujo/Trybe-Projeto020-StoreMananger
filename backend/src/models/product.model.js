@@ -28,8 +28,27 @@ const register = async (name) => {
     return metaData;
 };
 
+const update = async (productId, newData) => {
+    // Atualizar o produto na tabela "products"
+    const [metaData] = await connection.execute(
+      'UPDATE products SET name = ? WHERE id = ?',
+      [newData, productId],
+    );
+
+    const updatedProductData = {
+        id: productId,
+        name: newData,
+    };
+
+    return {
+        updatedProductData,
+        metaData,
+    };
+  };
+
 module.exports = {
     findAll,
     findById,
     register,
+    update,
 };
