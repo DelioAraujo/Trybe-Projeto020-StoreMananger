@@ -13,7 +13,18 @@ const findAll = async () => {
     return { status: 200, data: product };
   };
 
+  const register = async (name) => {
+    const metaData = await productModel.register(name);
+    const registeredProductData = {
+      id: metaData.insertId,
+      name,
+    };
+
+    return registeredProductData;
+  };
+
   module.exports = {
     findById,
     findAll,
+    register,
   };
