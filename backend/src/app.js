@@ -1,6 +1,5 @@
 const express = require('express');
 const { productRoutes, salesRoutes } = require('./routes');
-const validateBodyData = require('./middlewares/validateBodyData.middleware');
 
 const app = express();
 app.use(express.json());
@@ -12,7 +11,7 @@ app.get('/', (_request, response) => {
 
 // projeto....
 
-app.use('/products', validateBodyData, productRoutes);
+app.use('/products', productRoutes);
 app.use('/sales', salesRoutes);
 
 module.exports = app;
