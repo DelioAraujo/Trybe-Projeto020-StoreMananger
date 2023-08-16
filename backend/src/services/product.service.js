@@ -41,9 +41,20 @@ const update = async (productId, name) => {
   return { status: 200, data: updatedProductData };
 };
 
+const deleteProduct = async (productId) => {
+ const { metaData } = await productModel.deleteProduct(productId);
+
+ if (metaData.affectedRows === 0) {
+  return { status: 404, data: { message: 'Product not found' } };
+ }
+
+ return { status: 204 };
+};
+
 module.exports = {
   findById,
   findAll,
   register,
   update,
+  deleteProduct,
 };
