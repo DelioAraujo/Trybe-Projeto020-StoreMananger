@@ -1,9 +1,9 @@
-const camelize = require('camelize');
-const conection = require('./connection');
+const camelize = require("camelize");
+const connection = require("./connection");
 
 const findAll = async () => {
-    const [allSales] = await conection.execute(
-        `
+  const [allSales] = await connection.execute(
+    `
         SELECT
             s.id AS saleId,
             s.date,
@@ -13,15 +13,15 @@ const findAll = async () => {
             sales s
         JOIN
             sales_products sp ON s.id = sp.sale_id
-        `,
-    );
+        `
+  );
 
-    return camelize(allSales);
+  return camelize(allSales);
 };
 
 const findById = async (productId) => {
-    const [[product]] = await conection.execute(
-        `
+  const [[product]] = await connection.execute(
+    `
         SELECT
             s.id AS saleId,
             s.date,
@@ -34,52 +34,51 @@ const findById = async (productId) => {
         WHERE
             s.id = ?
         `,
-        [productId],
-        );
+    [productId]
+  );
 
-    return camelize(product);
+  return camelize(product);
 };
 
-// const createSale = async (productId, quantity) => {
-//     // Verificar se o produto existe
-//     const [productCheck] = await conection.execute(
-//       `
-//       SELECT * FROM products WHERE id = ?
-//       `,
-//       [productId],
-//     );
+const createSale = async () => {
+  // Inserir a venda na tabela "sales" e obter o ID da venda inserida
+  const [createNewSaleMetadata] = await connection.execute(
+    `
+      INSERT INTO sales (date)
+      VALUES (NOW())
+    `,
+  );
+  const saleId = createNewSaleMetadata.insertId;
 
-//      // Inserir a venda na tabela "sales" e obter o ID da venda inserida
-//     const [insertedSale] = await conection.execute(
-//       `
-//       INSERT INTO sales (date)
-//       VALUES (NOW())
-//       `,
-//     );
-//     const saleId = insertedSale.insertId;
+  return saleId;
+};
 
-//     // Inserir a venda na tabela "sales_products"
-//     await conection.execute(
-//       `
-//       INSERT INTO sales_products (sale_id, product_id, quantity)
-//       VALUES (?, ?, ?)
-//       `,
-//       [saleId, productId, quantity],
-//     );
+const saleProductCompleteData = async (body) => {
+  // pega id da venda que vem dentro do retorno/metadado dado quando se faz um insert
+  const saleId = await createSale();
 
-//     const itemInserted = {
-//       productCheck,
-//       saleId,
-//       productId,
-//       quantity,
-//     };
+  const salesProductsList = body.map((item) => {
+    connection.execute(
+      `
+    INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?,?,?)
+    `,
 
-//     return {
-//       itemInserted,
-//     };
-//   };
+      [saleId, item.productId, item.quantity],
+    );
+
+    return item;
+  });
+
+  await Promise.all(salesProductsList);
+
+  return {
+    id: saleId,
+    itemsSold: salesProductsList,
+  };
+};
 
 module.exports = {
-    findAll,
-    findById,
+  findAll,
+  findById,
+  saleProductCompleteData,
 };

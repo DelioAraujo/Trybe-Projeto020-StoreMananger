@@ -57,10 +57,19 @@ const deleteProduct = async (productId) => {
       };
 };
 
+const productIdList = async () => {
+    const [productIds] = await conection.execute(
+      'SELECT id FROM products',
+    );
+
+    return productIds.map((row) => row.id);
+  };
+
 module.exports = {
     findAll,
     findById,
     register,
     update,
     deleteProduct,
+    productIdList,
 };
