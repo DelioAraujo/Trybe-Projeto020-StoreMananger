@@ -1,9 +1,8 @@
 const camelize = require('camelize');
-const conection = require('./connection');
 const connection = require('./connection');
 
 const findAll = async () => {
-    const [productsList] = await conection.execute(
+    const [productsList] = await connection.execute(
         'SELECT * FROM products ORDER BY id ASC',
     );
 
@@ -11,7 +10,7 @@ const findAll = async () => {
 };
 
 const findById = async (productId) => {
-    const [[product]] = await conection.execute(
+    const [[product]] = await connection.execute(
         'SELECT * FROM products WHERE id = ? ORDER BY id ASC',
         [productId],
         );
@@ -52,18 +51,16 @@ const deleteProduct = async (productId) => {
         [productId],
       );
 
-      return {
-        metaData,
-      };
+      return metaData;
 };
 
-const productIdList = async () => {
-    const [productIds] = await conection.execute(
-      'SELECT id FROM products',
-    );
+// const productIdList = async () => {
+//     const [productIds] = await conection.execute(
+//       'SELECT id FROM products',
+//     );
 
-    return productIds.map((row) => row.id);
-  };
+//     return productIds.map((row) => row.id);
+//   };
 
 module.exports = {
     findAll,
@@ -71,5 +68,5 @@ module.exports = {
     register,
     update,
     deleteProduct,
-    productIdList,
+    // productIdList,
 };

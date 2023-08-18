@@ -1,4 +1,4 @@
-const allProductsMock = [
+const findAllResolves = [
   {
     id: 1,
     name: 'Martelo de Thor',
@@ -13,23 +13,36 @@ const allProductsMock = [
   },
 ];
 
-const allProductsMockFromDB = [
-  [{
-    id: 1,
-    name: 'Martelo de Thor',
-  },
+const findByIdResolves = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
+const registerResolves = [
   {
-    id: 2,
-    name: 'Traje de encolhimento',
+    insertId: 1,
   },
-  {
-    id: 3,
-    name: 'Escudo do Capitão América',
-  }],
-  null,
+  undefined,
 ];
+
+const updateResolves = {
+  updatedProductData: {
+    id: 1,
+    name: 'Martelo do Batman',
+  },
+  metaData: {
+    affectedRows: 1,
+  },
+};
+
+const deleteResolves = {
+  affectedRows: 1,
+};
 
   module.exports = {
-    allProductsMock,
-    allProductsMockFromDB,
+    findAllResolves,
+    findByIdResolves,
+    registerResolves,
+    updateResolves,
+    deleteResolves,
   };
