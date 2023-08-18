@@ -6,8 +6,8 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
-  const { Id } = req.params;
-  const { status, data } = await salesService.findById(Id);
+  const { id } = req.params;
+  const { status, data } = await salesService.findById(id);
   return res.status(status).json(data);
 };
 
