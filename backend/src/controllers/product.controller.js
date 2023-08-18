@@ -15,7 +15,6 @@ const register = async (req, res) => {
   const { name } = req.body;
 
   const registeredProductData = await productService.register(name);
-  console.log(registeredProductData);
 
   res.status(201).json(registeredProductData);
 };

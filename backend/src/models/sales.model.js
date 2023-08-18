@@ -40,7 +40,6 @@ const findById = async (saleId) => {
 };
 
 const createSale = async () => {
-  // Inserir a venda na tabela "sales" e obter o ID da venda inserida
   const [createNewSaleMetadata] = await connection.execute(
     `
       INSERT INTO sales (date)

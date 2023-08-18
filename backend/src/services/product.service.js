@@ -15,10 +15,7 @@ const findById = async (productId) => {
 
 const register = async (name) => {
   const metaData = await productModel.register(name);
-  const registeredProductData = {
-    id: metaData.insertId,
-    name,
-  };
+  const registeredProductData = { id: metaData.insertId, name };
 
   return registeredProductData;
 };
@@ -38,7 +35,7 @@ const update = async (productId, name) => {
     return { status: 404, data: { message: 'Product not found' } };
   }
 
-  return { status: 200, data: { id: productId, name } };
+  return { status: 200, data: { id: +productId, name } };
 };
 
 const deleteProduct = async (productId) => {
