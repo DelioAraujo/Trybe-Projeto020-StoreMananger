@@ -25,24 +25,33 @@ const registerResolves = [
   undefined,
 ];
 
+const registerResolves2 = {
+    insertId: 1,
+  };
+
 const updateResolves = {
-  updatedProductData: {
-    id: 1,
-    name: 'Martelo do Batman',
-  },
-  metaData: {
     affectedRows: 1,
-  },
-};
+  };
+
+  const updateModelIdNotFound = {
+    affectedRows: 0,
+  };
 
 const deleteResolves = {
   affectedRows: 1,
+};
+
+const deleteResolves2 = {
+  affectedRows: 0,
 };
 
   module.exports = {
     findAllResolves,
     findByIdResolves,
     registerResolves,
+    registerResolves2,
     updateResolves,
     deleteResolves,
+    deleteResolves2,
+    updateModelIdNotFound,
   };

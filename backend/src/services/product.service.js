@@ -24,8 +24,6 @@ const register = async (name) => {
 };
 
 const update = async (productId, name) => {
-  const { updatedProductData, metaData } = await productModel.update(productId, name);
-
   if (!name) {
     return { status: 400, data: { message: '"name" is required' } };
   }
@@ -34,11 +32,13 @@ const update = async (productId, name) => {
     return { status: 422, data: { message: '"name" length must be at least 5 characters long' } };
   }
 
+  const metaData = await productModel.update(productId, name);
+
   if (metaData.affectedRows === 0) {
     return { status: 404, data: { message: 'Product not found' } };
   }
 
-  return { status: 200, data: updatedProductData };
+  return { status: 200, data: { id: productId, name } };
 };
 
 const deleteProduct = async (productId) => {

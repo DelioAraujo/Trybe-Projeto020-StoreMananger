@@ -8,7 +8,7 @@ const {
   registerResolves,
   updateResolves,
   deleteResolves,
-} = require('../mocks/productMocks');
+} = require('../mocks/productModelMocks');
 
 describe('testes da camada product.model', function () {
   afterEach(function () {
