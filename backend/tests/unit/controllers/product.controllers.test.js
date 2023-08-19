@@ -7,12 +7,12 @@ const { productService } = require('../../../src/services');
 const {
     findAllServiceResolves,
     findByIdServiceResolves,
-    // registerServiceResolves,
+    deleteServiceResolves,
+    deleteNoAffectedRowsResolves,
 } = require('../mocks/productServiceMocks');
 const {
     findAllResolves,
     findByIdResolves,
-    // registerResolves2,
 } = require('../mocks/productModelMocks');
 
 chai.use(sinonChai);
@@ -52,18 +52,31 @@ describe('testes da camada product.controller', function () {
     expect(res.json).to.have.been.calledWith(findByIdResolves);
   });
 
-//   it('testa a função register do controller', async function () {
-//     sinon.stub(productService, 'register')
-//     .resolves(registerServiceResolves);
+  it('testa a função delete do controller', async function () {
+    sinon.stub(productService, 'deleteProduct')
+    .resolves(deleteServiceResolves);
 
-//     const req = { params: {}, body: { name: 'Delio' } };
-//     const res = {
-//       status: sinon.stub().returnsThis(),
-//       json: sinon.stub(),
-//     };
+    const req = { params: { id: 1 }, body: { } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
 
-//     await productController.register(req, res);
-//     expect(res.status).to.have.been.calledWith(201);
-//     expect(res.json).to.have.been.calledWith(registerResolves2);
-//   });
+    await productController.deleteProduct(req, res);
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('testa a função delete do controller com id errado', async function () {
+    sinon.stub(productService, 'deleteProduct')
+    .resolves(deleteNoAffectedRowsResolves);
+
+    const req = { params: { id: 999 }, body: { } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.deleteProduct(req, res);
+    expect(res.status).to.have.been.calledWith(404);
+  });
 });

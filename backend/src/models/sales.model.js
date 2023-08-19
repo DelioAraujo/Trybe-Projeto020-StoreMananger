@@ -79,4 +79,5 @@ module.exports = {
   findAll,
   findById,
   saleProductCompleteData,
+  createSale,
 };
