@@ -52,7 +52,7 @@ const createSale = async () => {
 };
 
 const saleProductCompleteData = async (body) => {
-  // pega id da venda que vem dentro do retorno/metadado dado quando se faz um insert
+  // pega id da venda que vem dentro do retorno/metadado dado quando se faz um insert.
   const saleId = await createSale();
 
   const salesProductsList = body.map((item) => {
