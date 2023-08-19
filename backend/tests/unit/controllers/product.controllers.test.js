@@ -7,12 +7,12 @@ const { productService } = require('../../../src/services');
 const {
     findAllServiceResolves,
     findByIdServiceResolves,
-    registerServiceResolves,
+    // registerServiceResolves,
 } = require('../mocks/productServiceMocks');
 const {
     findAllResolves,
     findByIdResolves,
-    registerResolves2,
+    // registerResolves2,
 } = require('../mocks/productModelMocks');
 
 chai.use(sinonChai);
