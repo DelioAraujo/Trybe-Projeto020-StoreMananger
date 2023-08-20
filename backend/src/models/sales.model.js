@@ -55,7 +55,7 @@ const saleProductCompleteData = async (body) => {
   // pega id da venda que vem dentro do retorno/metadado dado quando se faz um insert.
   const saleId = await createSale();
 
-  const salesProductsList = body.map((item) => {
+  const salesProductsList = body.map(async (item) => {
     connection.execute(
       `
     INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?,?,?)
@@ -67,11 +67,11 @@ const saleProductCompleteData = async (body) => {
     return item;
   });
 
-  await Promise.all(salesProductsList);
+  const resolvedArray = await Promise.all(salesProductsList);
 
   return {
     id: saleId,
-    itemsSold: salesProductsList,
+    itemsSold: resolvedArray,
   };
 };
 
