@@ -56,7 +56,7 @@ const saleProductCompleteData = async (body) => {
   const saleId = await createSale();
 
   const salesProductsList = body.map(async (item) => {
-    connection.execute(
+    await connection.execute(
       `
     INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?,?,?)
     `,
