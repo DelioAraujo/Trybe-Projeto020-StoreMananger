@@ -75,9 +75,17 @@ const saleProductCompleteData = async (body) => {
   };
 };
 
+// const productsIdList = async () => {
+//   const [rows] = await connection.execute('SELECT id FROM `StoreManager`.`products`');
+//   const idsList = rows.map((row) => row.id);
+
+//   return idsList;
+// };
+
 module.exports = {
   findAll,
   findById,
   saleProductCompleteData,
   createSale,
+  // productsIdList,
 };
