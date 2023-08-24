@@ -6,11 +6,11 @@ const { saleController } = require('../../../src/controllers');
 const { salesService } = require('../../../src/services');
 const {
     findAllServiceResolves,
-    findByIdSalesServiceResolve
+    findByIdSalesServiceResolve,
 } = require('../mocks/salesServiceMocks');
 const {
     finAllSalesResolve,
-    findByIdSalesResolve
+    findByIdSalesResolve,
 } = require('../mocks/salesModelMocks');
 
 chai.use(sinonChai);
