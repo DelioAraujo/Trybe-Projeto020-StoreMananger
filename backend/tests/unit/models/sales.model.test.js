@@ -7,6 +7,8 @@ const {
     findByIdSalesResolve,
     createSaleResolve,
     createSaleResolveId,
+    // createSaleResolveId2,
+    // saleBodydata
 } = require('../mocks/salesModelMocks');
 
 describe('testes da camada sales.model', function () {
@@ -39,4 +41,17 @@ describe('testes da camada sales.model', function () {
 
     expect(createSale).to.deep.equal(createSaleResolveId);
   });
+
+  // it('testa a função saleProductCompleteData do model', async function () {
+
+  //   // Simula a função createSale
+  //   sinon.stub(salesModel, 'createSale').resolves(createSaleResolveId2);
+
+  //   // Simula a função connection.execute
+  //   sinon.stub(connection, 'execute').resolves();
+
+  //   const saleProductCompleteData = await salesModel.saleProductCompleteData(saleBodydata);
+
+  //   expect(saleProductCompleteData).to.deep.equal(saleProductCompleteDataResolve);
+  // });
 });

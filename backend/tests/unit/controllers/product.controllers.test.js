@@ -9,6 +9,10 @@ const {
     findByIdServiceResolves,
     deleteServiceResolves,
     deleteNoAffectedRowsResolves,
+    updateServiceResolves,
+    updateNoNameResolves,
+    updateShortNameResolves,
+    updateIdNotFound,
 } = require('../mocks/productServiceMocks');
 const {
     findAllResolves,
@@ -78,5 +82,65 @@ describe('testes da camada product.controller', function () {
 
     await productController.deleteProduct(req, res);
     expect(res.status).to.have.been.calledWith(404);
+  });
+
+  it('testa a função update', async function () {
+    sinon.stub(productService, 'update')
+    .resolves(updateServiceResolves);
+
+    const req = { params: { id: 2 }, body: { name: 'Delio' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.update(req, res);
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(updateServiceResolves.data);
+  });
+
+  it('testa a função update sem name', async function () {
+    sinon.stub(productService, 'update')
+    .resolves(updateNoNameResolves);
+
+    const req = { params: { id: 2 }, body: { name: '' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.update(req, res);
+    expect(res.status).to.have.been.calledWith(updateNoNameResolves.status);
+    expect(res.json).to.have.been.calledWith(updateNoNameResolves.data);
+  });
+
+  it('testa a função update com nome pequeno', async function () {
+    sinon.stub(productService, 'update')
+    .resolves(updateShortNameResolves);
+
+    const req = { params: { id: 2 }, body: { name: 'deli' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.update(req, res);
+    expect(res.status).to.have.been.calledWith(updateShortNameResolves.status);
+    expect(res.json).to.have.been.calledWith(updateShortNameResolves.data);
+  });
+
+  it('testa a função update com id errado', async function () {
+    sinon.stub(productService, 'update')
+    .resolves(updateIdNotFound);
+
+    const req = { params: { id: 99 }, body: { name: 'deli' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productController.update(req, res);
+    expect(res.status).to.have.been.calledWith(updateIdNotFound.status);
+    expect(res.json).to.have.been.calledWith(updateIdNotFound.data);
   });
 });

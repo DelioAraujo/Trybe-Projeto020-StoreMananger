@@ -32,6 +32,19 @@ const finAllSalesResolve = [
 
   const createSaleResolveId = 100;
 
+  const createSaleResolveId2 = 3;
+
+  const saleBodydata = [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ];
+
   const saleProductCompleteData = {
     id: 3,
     itemsSold: [
@@ -46,10 +59,15 @@ const finAllSalesResolve = [
     ],
   };
 
+  const productsIdList = [1];
+
   module.exports = {
     finAllSalesResolve,
     findByIdSalesResolve,
     createSaleResolve,
     createSaleResolveId,
     saleProductCompleteData,
+    createSaleResolveId2,
+    saleBodydata,
+    productsIdList,
   };

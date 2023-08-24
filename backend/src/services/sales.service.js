@@ -59,4 +59,6 @@ module.exports = {
   findAll,
   findById,
   createNewSale,
+  validateProductId,
+  validateSaleItem,
 };
